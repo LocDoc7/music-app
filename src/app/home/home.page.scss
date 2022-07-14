@@ -13,26 +13,41 @@ ion-slides{
 
 ion-slide > h1,h2{
   margin: 20px 20px 20px 20px;
-  color: gray;
-  border-color: black;
-  border-style: dashed;
+  color: var(--slide-color-text);
+  // border-color: black;
+  // border-style: dashed;
+}
+h1{
+  font-weight: bold;
+}
+h2{
+  font-weight: 600;
+  font-size: 18px;
 }
 
 ion-slide > p {
-  font-style: italic;
-  font-size: 22px;
-  padding: 20px 20px 20px 20px;
-  border-color: black;
-  border-style: dashed;
+  font-style: normal;
+  font-size: 20px;
+  padding: 0px 20px 20px 20px;
+  text-align: justify;
+  text-justify: inter-word;
+  // border-color: black;
+  // border-style: dashed;
 }
 
 ion-slide > ion-icon{
-  color: rgb(157, 157, 157);
+  color: var(--slide-color-icon);
   font-size: 50px;
 }
 
 ion-slide > ion-icon[name="close"]{
   float: right;
-  color: black;
+  color: var(--slide-color-icon);
   font-size: 40px;
+}
+
+.swiper-slide img{
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
 }
