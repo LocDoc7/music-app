@@ -10,5 +10,27 @@
 
 
 <ion-content>
-  <h1>Hola soy el home</h1>
+  <h1>Artistas</h1>
+  <ion-slides [options]="slideOps">
+
+    <ion-slide *ngFor="let artist of artists">
+      <ion-avatar>
+        <img src="https://via.placeholder.com/150/0000FF/808080"/>
+        <span>{{artist.name}}</span>
+      </ion-avatar>
+    </ion-slide>
+
+  </ion-slides>
+
+  <ion-slides [options]="slideOps">
+
+    <ion-slide *ngFor="let album of albums">
+      <ion-avatar>
+        <img src="https://via.placeholder.com/150/FFFF00/000000"/>
+        <span>{{album.name}}</span>
+      </ion-avatar>
+    </ion-slide>
+    
+  </ion-slides>
+
 </ion-content>

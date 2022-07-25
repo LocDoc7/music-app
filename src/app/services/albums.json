@@ -1,0 +1,31 @@
+{
+    "albums": [
+        {
+            "name": "Electronica"
+        },
+        {
+            "name": "Pop"
+        },
+        {
+            "name": "K-Pop"
+        },
+        {
+            "name": "Salsa"
+        },
+        {
+            "name": "Rock"
+        },
+        {
+            "name": "Rap"
+        },
+        {
+            "name": "Cristiano"
+        },
+        {
+            "name": "Latinoamericano"
+        },
+        {
+            "name": "Las fuleras"
+        }
+    ]
+}

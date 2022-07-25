@@ -14,11 +14,14 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item (click)="logout()">Cerrar Sesion</ion-item>
+        
         <ion-item>Funcion 2</ion-item>
         <ion-item>Funcion 3</ion-item>
         <ion-item>Funcion 4</ion-item>
       </ion-list>
+      <ion-footer>
+        <ion-item (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesion</ion-item>
+      </ion-footer>
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="content" main></ion-router-outlet>
