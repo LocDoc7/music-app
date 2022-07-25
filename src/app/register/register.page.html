@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title style="color: #57e952;" class="ion-text-center ion-text-uppercase">Registrate</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="goToLogin()">
+        <ion-icon slot="icon-only" ios="caret-back-outline" md="caret-back-outline"></ion-icon>    
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color: #57e952;" class="ion-text-uppercase">Registrate</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -71,6 +76,8 @@
         </div>
       </ng-container>
     </div>
+
+    <ion-button expand="full" shape="round" color="success" [disabled]="!registerForm.valid" type="submit">Registrarse</ion-button>
 
   </form>
 
