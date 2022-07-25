@@ -35,8 +35,15 @@
         ">
           {{validation.message}}
         </div>
-        
       </ng-container>
     </div>
+    <ion-button expand="full" shape="round" color="success" [disabled]="!loginForm.valid" type="submit">login</ion-button>
   </form>
+  <div style="color: #eb445a;" class="ion-text-center">
+    {{errorMessage}}
+  </div>
+  
 </ion-content>
+<ion-footer>
+  <ion-button expand="full" shape="round" (click)="goToRegister()">Registrate</ion-button>
+</ion-footer>
