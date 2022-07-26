@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'songs-modal',
     loadChildren: () => import('./songs-modal/songs-modal.module').then( m => m.SongsModalPageModule)
-  },
+  }
 ];
 
 @NgModule({

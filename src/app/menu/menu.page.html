@@ -14,15 +14,16 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        
-        <ion-item>Funcion 2</ion-item>
+        <ion-item (click)="goToHome()">Inicio<ion-icon name="home-outline"></ion-icon></ion-item>
+        <ion-item (click)="goToSettings()">Configuración<ion-icon name="settings-outline"></ion-icon></ion-item>
+        <ion-item (click)="goToMaps()">Mapa<ion-icon name="map-outline"></ion-icon></ion-item>
         <ion-item>Funcion 3</ion-item>
         <ion-item>Funcion 4</ion-item>
       </ion-list>
-      <ion-footer>
-        <ion-item (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesion</ion-item>
-      </ion-footer>
     </ion-content>
+    <ion-footer>
+      <ion-item (click)="logout()">Cerrar Sesion<ion-icon name="log-out-outline"></ion-icon></ion-item>
+    </ion-footer>
   </ion-menu>
   <ion-router-outlet id="content" main></ion-router-outlet>
 </ion-split-pane>
