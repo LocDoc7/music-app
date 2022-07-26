@@ -44,4 +44,14 @@ export class MusicService {
     );
   }
 
+  searchTracks(keyword){
+    let params = {
+      "track":{
+        "q": keyword
+      }
+    }
+    return this.http.post(`${this.url_server}search_track`,params,this.httpHeader)
+  }
+
+
 }

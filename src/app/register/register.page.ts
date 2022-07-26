@@ -1,8 +1,10 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthenticateService } from '../services/authenticate.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +13,8 @@ import { AuthenticateService } from '../services/authenticate.service';
 })
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
+  registerResult;
+  errMessage;
   validation_messages = {
     name: [
       { type: "required", message: "El nombre es obligatorio"},
@@ -30,10 +34,10 @@ export class RegisterPage implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder, private navCtrl: NavController, private storage: Storage, private authService: AuthenticateService) {
+  constructor(private alertController: AlertController,private formBuilder: FormBuilder, private navCtrl: NavController, private storage: Storage, private authService: AuthenticateService) {
     this.registerForm = this.formBuilder.group({
       name: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z -]{2,}\s?([a-zA-Z]{1,})?")])),
-      lastname: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z -]{2,}\s?([a-zA-Z]{1,})?")])),
+      last_name: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z -]{2,}\s?([a-zA-Z]{1,})?")])),
       email: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]+$")])),
       password: new FormControl("",Validators.compose([Validators.required,Validators.minLength(6)]))
     })
@@ -43,10 +47,24 @@ export class RegisterPage implements OnInit {
   }
 
   register(registerFormValues) {
-    this.authService.registerUser(registerFormValues).then(() =>{
+    this.authService.registerUser(registerFormValues).then((data) =>{
+      this.errMessage="";
       this.navCtrl.navigateBack("/login");
-    })
+    }).catch(err =>{
+      this.presentAlert("Opps","Hubo un error",err)
+    });
   }
+
+  async presentAlert(header, suhHeader, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: suhHeader,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
 
   goToLogin() {
     this.navCtrl.navigateBack("/login")

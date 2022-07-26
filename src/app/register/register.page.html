@@ -31,14 +31,14 @@
 
     <ion-item>
       <ion-label position="floating">Apellido</ion-label>
-      <ion-input formControlName="lastname"></ion-input>
+      <ion-input formControlName="last_name"></ion-input>
     </ion-item>
     <div>
-      <ng-container *ngFor="let validation of validation_messages.lastname">
+      <ng-container *ngFor="let validation of validation_messages.last_name">
         <div style="color: #eb445a;" class="ion-text-right" *ngIf="
-        registerForm.get('lastname').hasError(validation.type) && 
-          (registerForm.get('lastname').dirty || 
-          registerForm.get('lastname').touched)
+        registerForm.get('last_name').hasError(validation.type) && 
+          (registerForm.get('last_name').dirty || 
+          registerForm.get('last_name').touched)
         ">
           {{validation.message}}
         </div>
