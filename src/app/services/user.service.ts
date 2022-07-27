@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders,HttpResponse,HttpRequest } from '@angular/common/http';
 
 @Injectable({
@@ -12,8 +11,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
   }
 
-  constructor(private storage: Storage, private http: HttpClient) { 
-    this.storage.create();
+  constructor( private http: HttpClient) { 
   }
 
   getCurrentUser(id) {
@@ -42,11 +40,22 @@ export class UserService {
 
   getUser(keyword) {
     let params = {
-      "user": {
-        "q": keyword
-      }
+      "q": keyword
     }
     return this.http.post(`${this.url_server}find_user`,params, this.httpOptions)
+  }
+
+  followUser(followee_id,user_id) {
+    let params = {
+      "followee_id": followee_id
+    }
+    return this.http.post(`${this.url_server}follow/${user_id}`,params, this.httpOptions)
+  }
+  unfollowUser(followee_id,user_id) {
+    let params = {
+      "followee_id": followee_id
+    }
+    return this.http.post(`${this.url_server}unfollow/${user_id}`,params, this.httpOptions)
   }
 
 }

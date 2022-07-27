@@ -2,7 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@capacitor/storage';
 import { AuthenticateService } from '../services/authenticate.service';
 import { AlertController } from '@ionic/angular';
 
@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit {
     ]
   };
 
-  constructor(private alertController: AlertController,private formBuilder: FormBuilder, private navCtrl: NavController, private storage: Storage, private authService: AuthenticateService) {
+  constructor(private alertController: AlertController,private formBuilder: FormBuilder, private navCtrl: NavController, private authService: AuthenticateService) {
     this.registerForm = this.formBuilder.group({
       name: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z -]{2,}\s?([a-zA-Z]{1,})?")])),
       last_name: new FormControl("",Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z -]{2,}\s?([a-zA-Z]{1,})?")])),

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AuthenticateService } from '../services/authenticate.service';
-import { Storage } from '@ionic/storage';
 import { AlertController, NavController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-settings',
@@ -30,12 +30,12 @@ export class SettingsPage implements OnInit {
 
   goBack = false;
 
-  constructor(private userService: UserService,private navCtrol: NavController,private alertController: AlertController,private sanitizer: DomSanitizer, private authService: AuthenticateService, private storage: Storage) { 
-    this.storage.create();
+  constructor(private userService: UserService,private navCtrol: NavController,private alertController: AlertController,private sanitizer: DomSanitizer, private authService: AuthenticateService) { 
   }
 
   async ngOnInit() {
-    this.user_id = await this.storage.get("user_id");
+    const { value } = await Storage.get({key: "user_id"});
+    this.user_id = value;
     this.userService.getCurrentUser(this.user_id).subscribe((data: any) => {
       this.user.email = data.email
       this.user.name = data.name
@@ -133,20 +133,57 @@ export class SettingsPage implements OnInit {
     this.presentAlertText();
   }
 
-  getUsers(keyword: string){
+  getUsers(keyword){
+    keyword = keyword.value
     this.searching = true;
-    if(keyword.length > 0) {
-      this.userService.getUser(keyword).subscribe( async resp => {
+    if ( keyword.length > 0 ) {
+      this.userService.getUser(keyword).subscribe(resp => {
         this.users = resp;
-        if (this.users.length === 0){
-          this.text = "No se encontraron usuarios con ese nombre"
+        if (this.users.length === 0 ){
+          this.text = "no se encontraron usuarios con ese nombre"
+        }else{
+          this.users.forEach(user => {
+            user["follow"] = false
+            user.following_users.forEach(following_user => {
+              if (following_user.follower_id == this.user_id) {
+                user["follow"] = true
+              }
+            })
+          });
         }
         this.searching = false;
       });
+
     }else{
-      this.text = "Ingrese un nombre para buscar"
+      this.text = "ingrese un nombre para buscar"
       this.users = [];
     }
+  }
+
+  followUser(followee_id) {
+    this.userService.followUser(followee_id, this.user_id).subscribe( async (resp: any) => {
+      this.presentAlert("Follow","",resp.msg)
+      this.users.forEach( user => {
+        if(followee_id == user.id){
+          user["follow"] = true
+          let newFolleew = parseInt(document.getElementById("followee").textContent) + 1
+          document.getElementById("followee").textContent = newFolleew.toString();
+        }
+      })
+    })
+  }
+
+  unfollowUser(followee_id) {
+    this.userService.unfollowUser(followee_id, this.user_id).subscribe( async (resp: any) => {
+      this.presentAlert("Unfollow","",resp.msg)
+      this.users.forEach( user => {
+        if(followee_id == user.id){
+          user["follow"] = false
+          let newFolleew = parseInt(document.getElementById("followee").textContent) - 1
+          document.getElementById("followee").textContent = newFolleew.toString();
+        }
+      })
+    })
   }
 
 
